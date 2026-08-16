@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dindin do Lukas Levy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF8ED;
+    --ink:#231C15;
+    --morango:#FF4D6D;
+    --manga:#FFC23C;
+    --uva:#8A3FFC;
+    --coco:#2FAE73;
+    --stick:#E7C696;
+    --shadow: 6px 6px 0 rgba(35,28,21,0.9);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Nunito', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3, .display{
+    font-family:'Baloo 2', sans-serif;
+  }
+  .wrap{
+    max-width:480px;
+    margin:0 auto;
+    padding:0 20px 60px;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    padding:28px 0 10px;
+    text-align:center;
+  }
+  .eyebrow{
+    display:inline-block;
+    background:var(--ink);
+    color:var(--cream);
+    font-weight:800;
+    font-size:13px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:6px 14px;
+    border-radius:999px;
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:44px;
+    line-height:1.02;
+    margin:0 0 8px;
+    font-weight:800;
+  }
+  .hero h1 span{
+    display:block;
+    color:var(--morango);
+    -webkit-text-stroke: 2px var(--ink);
+    text-stroke: 2px var(--ink);
+  }
+  .hero p{
+    font-size:17px;
+    font-weight:600;
+    max-width:320px;
+    margin:0 auto 22px;
+    opacity:.85;
+  }
+
+  /* Popsicle signature illustration */
+  .pop-stage{
+    display:flex;
+    justify-content:center;
+    margin:14px 0 6px;
+  }
+  #popsicle{ transition: filter .25s ease; }
+  #pop-body{ transition: fill .35s ease; }
+  #pop-body2{ transition: fill .35s ease; }
+
+  .price-tag{
+    display:inline-flex;
+    align-items:baseline;
+    gap:6px;
+    background:var(--manga);
+    border:3px solid var(--ink);
+    box-shadow:var(--shadow);
+    border-radius:16px;
+    padding:8px 18px;
+    margin-top:14px;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    transform:rotate(-3deg);
+  }
+  .price-tag .num{ font-size:30px; }
+  .price-tag .unit{ font-size:14px; opacity:.75; }
+
+  /* ===== SECTION SHELL ===== */
+  section{ margin-top:38px; }
+  .sec-title{
+    font-size:22px;
+    font-weight:800;
+    margin:0 0 4px;
+  }
+  .sec-sub{
+    font-size:14px;
+    font-weight:600;
+    opacity:.65;
+    margin:0 0 16px;
+  }
+
+  /* ===== FLAVOR CARDS ===== */
+  .flavors{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+  .flavor{
+    position:relative;
+    border:3px solid var(--ink);
+    border-radius:18px;
+    padding:14px 12px 12px;
+    background:#fff;
+    box-shadow:var(--shadow);
+    cursor:pointer;
+    user-select:none;
+    transition:transform .12s ease;
+  }
+  .flavor:active{ transform:translate(2px,2px); box-shadow:2px 2px 0 rgba(35,28,21,0.9); }
+  .flavor .swatch{
+    width:34px;height:34px;border-radius:50%;
+    border:3px solid var(--ink);
+    margin-bottom:8px;
+  }
+  .flavor .fname{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:16px;
+    display:block;
+  }
+  .flavor .fdesc{
+    font-size:12px;
+    font-weight:600;
+    opacity:.6;
+    display:block;
+    margin-top:2px;
+  }
+  .flavor.selected{
+    outline:none;
+  }
+  .stepper{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:10px;
+    background:var(--cream);
+    border:2px solid var(--ink);
+    border-radius:10px;
+    padding:4px 6px;
+  }
+  .stepper button{
+    width:26px;height:26px;
+    border-radius:8px;
+    border:2px solid var(--ink);
+    background:#fff;
+    font-weight:800;
+    font-size:15px;
+    line-height:1;
+    cursor:pointer;
+  }
+  .stepper .qty{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:800;
+    font-size:16px;
+    min-width:20px;
+    text-align:center;
+  }
+
+  /* ===== ORDER FORM ===== */
+  .field{ margin-bottom:14px; }
+  .field label{
+    display:block;
+    font-weight:800;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    margin-bottom:6px;
+    opacity:.75;
+  }
+  .field input, .field textarea{
+    width:100%;
+    border:3px solid var(--ink);
+    border-radius:12px;
+    padding:12px 14px;
+    font-family:'Nunito', sans-serif;
+    font-size:15px;
+    font-weight:700;
+    background:#fff;
+    color:var(--ink);
+  }
+  .field input:focus, .field textarea:focus{
+    outline:3px solid var(--uva);
+    outline-offset:1px;
+  }
+
+  /* ===== SUMMARY ===== */
+  .summary{
+    border:3px dashed var(--ink);
+    border-radius:16px;
+    padding:16px 18px;
+    background:#fff;
+  }
+  .summary-row{
+    display:flex;
+    justify-content:space-between;
+    font-weight:700;
+    font-size:14px;
+    padding:5px 0;
+  }
+  .summary-empty{
+    font-size:14px;
+    font-weight:700;
+    opacity:.55;
+  }
+  .summary-total{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-top:3px solid var(--ink);
+    margin-top:10px;
+    padding-top:10px;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:800;
+    font-size:20px;
+  }
+
+  .cta{
+    display:block;
+    width:100%;
+    margin-top:18px;
+    background:var(--coco);
+    color:#fff;
+    border:3px solid var(--ink);
+    box-shadow:var(--shadow);
+    border-radius:16px;
+    padding:16px;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:800;
+    font-size:18px;
+    text-align:center;
+    text-decoration:none;
+    cursor:pointer;
+    transition:transform .12s ease, opacity .12s ease;
+  }
+  .cta:active{ transform:translate(3px,3px); box-shadow:3px 3px 0 rgba(35,28,21,0.9); }
+  .cta[disabled], .cta.disabled{
+    opacity:.45;
+    pointer-events:none;
+  }
+  .cta-hint{
+    text-align:center;
+    font-size:12px;
+    font-weight:700;
+    opacity:.55;
+    margin-top:8px;
+  }
+
+  footer{
+    text-align:center;
+    margin-top:44px;
+    font-size:13px;
+    font-weight:700;
+    opacity:.6;
+  }
+  footer b{ opacity:1; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">Direto do congelador &middot; @lukaslevy</span>
+    <h1>Bateu aquele<span>calor?</span></h1>
+    <p>Dindin geladinho, na hora, pra matar o calor. Escolhe o sabor e chama no zap.</p>
+
+    <div class="pop-stage">
+      <svg id="popsicle" width="120" height="190" viewBox="0 0 120 190" xmlns="http://www.w3.org/2000/svg">
+        <rect x="52" y="140" width="16" height="46" rx="6" fill="#E7C696" stroke="#231C15" stroke-width="3"/>
+        <path id="pop-body" d="M20 30 C20 12 40 4 60 4 C80 4 100 12 100 30 L100 128 C100 140 90 150 78 150 L42 150 C30 150 20 140 20 128 Z" fill="#FF4D6D" stroke="#231C15" stroke-width="4"/>
+        <path id="pop-body2" d="M20 90 L100 90 L100 128 C100 140 90 150 78 150 L42 150 C30 150 20 140 20 128 Z" fill="#E5395B" opacity="0.55"/>
+        <path d="M32 28 C36 20 46 16 54 18" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.55"/>
+      </svg>
+    </div>
+
+    <div class="price-tag">
+      <span class="num">R$ 2</span>
+      <span class="unit">a unidade</span>
+    </div>
+  </div>
+
+  <section>
+    <h2 class="sec-title">Escolhe o sabor</h2>
+    <p class="sec-sub">Toca no sabor pra adicionar quantos quiser</p>
+    <div class="flavors" id="flavors"></div>
+  </section>
+
+  <section>
+    <h2 class="sec-title">Seu pedido</h2>
+    <p class="sec-sub">Só pra eu saber pra quem separar</p>
+    <div class="field">
+      <label for="nome">Seu nome</label>
+      <input id="nome" type="text" placeholder="Como você se chama?">
+    </div>
+    <div class="field">
+      <label for="obs">Endereço ou observação (opcional)</label>
+      <textarea id="obs" rows="2" placeholder="Rua, bloco, apto... ou alguma observação"></textarea>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-title">Resumo</h2>
+    <div class="summary" id="summary">
+      <div class="summary-empty">Nenhum dindin escolhido ainda 🍧</div>
+    </div>
+
+    <a href="#" id="cta" class="cta disabled">Escolhe um sabor pra continuar</a>
+    <p class="cta-hint">O pedido abre no seu WhatsApp, tudo prontinho pra enviar</p>
+  </section>
+
+  <footer>
+    feito com carinho por <b>Lukas Levy</b> 🍭
+  </footer>
+</div>
+
+<script type="module">
+  // ======= FIREBASE =======
+  // 1. Crie um projeto em https://console.firebase.google.com
+  // 2. Ative o "Firestore Database" (modo produção ou teste)
+  // 3. Em "Configurações do projeto" > "Seus apps" > Web, copie o firebaseConfig e cole abaixo
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "SUA_API_KEY",
+    authDomain: "SEU_PROJETO.firebaseapp.com",
+    projectId: "SEU_PROJETO",
+    storageBucket: "SEU_PROJETO.appspot.com",
+    messagingSenderId: "SEU_SENDER_ID",
+    appId: "SEU_APP_ID"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // ======= CONFIGURAÇÃO =======
+  // Troque pelo seu número de WhatsApp com DDI e DDD, só números.
+  // Exemplo: 55 (Brasil) + 85 (DDD) + número => "5585999999999"
+  const WHATSAPP_NUMBER = "5585921826939";
+  const PRICE = 2;
+
+  const FLAVORS = [
+    { id: "morango",  name: "Morango",         desc: "clássico e cremoso",     color: "#FF4D6D" },
+    { id: "batata",   name: "Batata c/ Coco",  desc: "doce raiz + coco",       color: "#E0A85B" },
+    { id: "maracuja", name: "Maracujá",        desc: "levemente azedinho",     color: "#FFB020" },
+    { id: "oreo",     name: "Oreo",            desc: "biscoito e cremoso",     color: "#3A3A3A" },
+    { id: "uva",      name: "Uva",             desc: "roxinho geladinho",      color: "#8A3FFC" },
+  ];
+
+  const state = {};
+  FLAVORS.forEach(f => state[f.id] = 0);
+
+  const flavorsEl = document.getElementById('flavors');
+  FLAVORS.forEach(f => {
+    const card = document.createElement('div');
+    card.className = 'flavor';
+    card.dataset.id = f.id;
+    card.innerHTML = `
+      <div class="swatch" style="background:${f.color}"></div>
+      <span class="fname">${f.name}</span>
+      <span class="fdesc">${f.desc}</span>
+      <div class="stepper">
+        <button type="button" class="minus" aria-label="Diminuir ${f.name}">−</button>
+        <span class="qty">0</span>
+        <button type="button" class="plus" aria-label="Aumentar ${f.name}">+</button>
+      </div>
+    `;
+    flavorsEl.appendChild(card);
+
+    const qtyEl = card.querySelector('.qty');
+    card.querySelector('.plus').addEventListener('click', (e) => {
+      e.stopPropagation();
+      state[f.id]++;
+      qtyEl.textContent = state[f.id];
+      card.classList.toggle('selected', state[f.id] > 0);
+      updateSummary();
+    });
+    card.querySelector('.minus').addEventListener('click', (e) => {
+      e.stopPropagation();
+      state[f.id] = Math.max(0, state[f.id] - 1);
+      qtyEl.textContent = state[f.id];
+      card.classList.toggle('selected', state[f.id] > 0);
+      updateSummary();
+    });
+  });
+
+  const summaryEl = document.getElementById('summary');
+  const ctaEl = document.getElementById('cta');
+  const popBody = document.getElementById('pop-body');
+  const popBody2 = document.getElementById('pop-body2');
+
+  function shade(hex, amt){
+    const c = hex.replace('#','');
+    const num = parseInt(c,16);
+    let r = (num>>16) + amt, g = ((num>>8)&0xff) + amt, b = (num&0xff) + amt;
+    r = Math.min(255,Math.max(0,r)); g = Math.min(255,Math.max(0,g)); b = Math.min(255,Math.max(0,b));
+    return "#" + (1<<24 | r<<16 | g<<8 | b).toString(16).slice(1);
+  }
+
+  function updateSummary(){
+    const chosen = FLAVORS.filter(f => state[f.id] > 0);
+    if(chosen.length === 0){
+      summaryEl.innerHTML = `<div class="summary-empty">Nenhum dindin escolhido ainda 🍧</div>`;
+      ctaEl.classList.add('disabled');
+      ctaEl.textContent = "Escolhe um sabor pra continuar";
+      popBody.setAttribute('fill', '#FF4D6D');
+      popBody2.setAttribute('fill', '#E5395B');
+      return;
+    }
+
+    let rows = "";
+    let totalQty = 0;
+    chosen.forEach(f => {
+      rows += `<div class="summary-row"><span>${state[f.id]}x ${f.name}</span><span>R$ ${(state[f.id]*PRICE).toFixed(2).replace('.',',')}</span></div>`;
+      totalQty += state[f.id];
+    });
+    const total = totalQty * PRICE;
+
+    summaryEl.innerHTML = rows + `
+      <div class="summary-total"><span>Total</span><span>R$ ${total.toFixed(2).replace('.',',')}</span></div>
+    `;
+
+    ctaEl.classList.remove('disabled');
+    ctaEl.textContent = `Pedir no WhatsApp — R$ ${total.toFixed(2).replace('.',',')}`;
+
+    // popsicle troca de cor pro último sabor mexido
+    const last = chosen[chosen.length - 1];
+    popBody.setAttribute('fill', last.color);
+    popBody2.setAttribute('fill', shade(last.color, -25));
+  }
+
+  ctaEl.addEventListener('click', async (e) => {
+    e.preventDefault();
+    if(ctaEl.classList.contains('disabled')) return;
+
+    const nome = document.getElementById('nome').value.trim();
+    const obs = document.getElementById('obs').value.trim();
+    const chosen = FLAVORS.filter(f => state[f.id] > 0);
+    const totalQty = chosen.reduce((s,f) => s + state[f.id], 0);
+    const total = totalQty * PRICE;
+
+    let msg = `Oi Lukas! Quero pedir uns dindin 🍧\n\n`;
+    chosen.forEach(f => { msg += `• ${state[f.id]}x ${f.name}\n`; });
+    msg += `\nTotal: R$ ${total.toFixed(2).replace('.',',')}\n`;
+    if(nome) msg += `\nNome: ${nome}`;
+    if(obs) msg += `\nObs: ${obs}`;
+
+    const textoOriginal = ctaEl.textContent;
+    ctaEl.textContent = "Salvando pedido...";
+    ctaEl.classList.add('disabled');
+
+    try{
+      await addDoc(collection(db, "pedidos"), {
+        nome: nome || "(não informado)",
+        observacao: obs || "",
+        itens: chosen.map(f => ({ sabor: f.name, quantidade: state[f.id] })),
+        total: total,
+        status: "novo",
+        criadoEm: serverTimestamp()
+      });
+    }catch(err){
+      console.error("Erro ao salvar no Firestore:", err);
+      // mesmo se falhar ao salvar, o pedido ainda segue pro WhatsApp
+    }
+
+    ctaEl.textContent = textoOriginal;
+    ctaEl.classList.remove('disabled');
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+  });
+
+  updateSummary();
+</script>
+</body>
+</html>
